@@ -1,3 +1,6 @@
+> [!NOTE]
+> **BedGaming** — este repositório é um fork pessoal do [Moonlight Tizen](https://github.com/brightcraft/moonlight-tizen) (BrightCraft e contribuidores), com o histórico original preservado e a mesma licença GPL-3.0. A documentação própria do BedGaming está em [`docs/bedgaming/`](docs/bedgaming/README.md). O conteúdo abaixo é o README original do projeto.
+
 # 🌙 Moonlight Tizen
 
 [![Release Version](https://img.shields.io/github/v/release/brightcraft/moonlight-tizen?style=for-the-badge&logo=github)](https://github.com/brightcraft/moonlight-tizen/releases/latest)
