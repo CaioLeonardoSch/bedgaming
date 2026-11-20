@@ -13,6 +13,11 @@ Cada fase tem um critério de conclusão. Não avançar sem cumpri-lo.
 **Concluída quando:** existe uma tabela com FPS, quadros perdidos e latências (host/rede) para cada
 combinação, e sabemos se 4K60 é estável no Wi-Fi atual.
 
+**Status (19/11/2026):** em andamento. Feitos: Sunshine + ViGEmBus + tela virtual 4K, Developer Mode,
+Moonlight v1.20.0 instalado e pareado, Tizen 8 confirmado, controle Xbox pareado, primeira sessão 4K
+sem perdas, jogo pelo Steam Big Picture sem atraso perceptível com a TV na rede 5 GHz (HEVC 40 Mbps).
+Faltam: matriz de testes completa e reserva de DHCP no roteador.
+
 ## Fase 1 — Ambiente de desenvolvimento
 
 Passo a passo em [FASE_0_E_1.md](FASE_0_E_1.md).
