@@ -56,10 +56,15 @@ Substitua `IP_DA_TV`, `IP_DO_PC` e `ID_DO_DISPOSITIVO` pelos valores reais. Não
   - **Display Id** (`output_name`): campo de texto livre; cole o `device_id` da tela virtual.
   - **Advanced display device options → Device configuration**: "Deactivate other displays and
     activate only the specified display" (`ensure_only_display`).
+  - **Config revert on disconnect** ("Configurar reverter ao desconectar",
+    `dd_config_revert_on_disconnect`): **marcado**. Sem isso o Sunshine só restaura o monitor físico
+    quando o app é fechado; ao sair do Moonlight pelo controle ou desligar a TV, o app continua aberto
+    no PC e o monitor fica apagado.
   - Resolução e refresh: usar os valores do cliente (padrão `auto`).
   - **Save** e **Apply**.
-- Fora do streaming a tela virtual pode ficar desativada (Win+P → "Somente tela do PC"); o Sunshine
-  a reativa no início da sessão e restaura o monitor físico no fim.
+- Fora do streaming a tela virtual pode ficar desativada; o Sunshine a reativa no início da sessão e
+  restaura o monitor físico quando todos os clientes desconectam. Se o monitor ficar apagado, Win+P →
+  "Somente tela do PC" o traz de volta.
 
 ### 0.2 Developer Mode na TV
 
@@ -173,6 +178,15 @@ O que foi diferente do previsto:
    respondia normalmente (ou seja, o vídeo estava rápido). [H] Causa provável: o Bluetooth do controle e
    o Wi-Fi 2.4 GHz disputando a mesma faixa na TV. **[F] Após mudar a TV para a rede 5 GHz, o atraso
    sumiu com HEVC 40 Mbps.** O IP da TV não mudou.
+9. **[F] Ao sair do Moonlight pelo controle e desligar a TV, o monitor do PC ficou apagado** (foi
+   preciso Win+P). O log do Sunshine mostrou `CLIENT DISCONNECTED` sem "revert": por padrão a
+   configuração de tela só é revertida quando o app (Desktop, Steam) é fechado, e sair pelo controle
+   apenas desconecta. Ajustado em 20/11/2026 marcando **Config revert on disconnect** (falta
+   confirmar no próximo uso).
+10. Com HEVC 80 Mbps assistindo YouTube no PC, o aviso "conexão lenta" apareceu uma vez. [F] O Moonlight
+    mostra o aviso quando perde ≥ 30% dos quadros em uma janela de 3 s, ou ≥ 15% em duas seguidas
+    (`moonlight-common-c/src/ControlStream.c`), então um aviso isolado é uma rajada curta de perda.
+    Mantido em 80; baixar para 60 se repetir.
 
 Pendente na Fase 0:
 
