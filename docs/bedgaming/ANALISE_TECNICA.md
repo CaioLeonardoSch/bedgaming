@@ -7,8 +7,9 @@ na TV.
 
 - **[F]** S90D é modelo 2024, lançado com **Tizen 8.0**. Nas tabelas de mídia da Samsung pertence ao
   grupo **24TV_PREMIUM4**.
-- **[H]** A Samsung oferece upgrades de sistema para modelos recentes; a TV pode receber (ou já ter
-  recebido) Tizen 9.0. Ver risco R1.
+- **[F]** Em 19/11/2026 a TV ainda roda **Tizen 8** (Moonlight → About → System information).
+- **[H]** A Samsung oferece upgrades de sistema para modelos recentes; a TV pode receber Tizen 9.0
+  no futuro. Ver risco R1.
 - **[F]** Apps de terceiros em TVs Samsung são **Tizen Web Apps** (`.wgt`: HTML/JS, com módulos
   WebAssembly opcionais). **[H]** Não há caminho público para apps nativos C/C++ em TVs de consumo.
 - **[F]** JavaScript padrão não abre sockets UDP/TCP crus. O protocolo do Moonlight usa UDP (vídeo,
@@ -77,8 +78,29 @@ na TV.
   cabo para streaming em 4K.
 - **[H]** A 5–10 m com uma parede, um Wi-Fi 5/6 bem configurado sustenta HEVC 4K60 a 40–80 Mbps. O
   problema real é **jitter**, não banda.
-- Roteador TP-Link XX530v (**[H]** Wi-Fi 6 dual-band). Ajustes previstos: SSID 5 GHz dedicado, canal
-  fixo, largura 80 MHz, WMM ligado, TV esquecida na rede 2.4 GHz.
+- Roteador TP-Link Aginet XX530v (**[F]** AX3000 Dual Band Wi-Fi 6 XPON, conforme etiqueta). Ajustes
+  previstos: SSID 5 GHz dedicado, canal fixo, largura 80 MHz, WMM ligado, TV esquecida na rede
+  2.4 GHz. **[F]** A senha de administrador do painel foi definida pela operadora na instalação.
+- **[F]** Linha de base em 19/11/2026: ping PC → TV de 2–9 ms; primeira sessão 4K sem quadros
+  perdidos e latência de rede de 1–4 ms (detalhes em [FASE_0_E_1.md](FASE_0_E_1.md)).
+- **[F]** Com a TV na rede 2.4 GHz, o controle Bluetooth teve atraso grande e o Moonlight avisou
+  "conexão lenta"; na 5 GHz o atraso sumiu. **[H]** Coexistência Bluetooth/Wi-Fi 2.4 GHz no rádio da
+  TV. Regra do projeto: TV sempre na 5 GHz.
+
+### Host com monitor ultrawide
+
+- **[F]** O monitor do PC é 3440×1440 (21:9), sem modo 3840×2160. O Sunshine captura a tela física,
+  então a TV recebe 21:9 com faixas pretas.
+- **[F]** Solução adotada: **Virtual Display Driver** (MIT) com 3840×2160 a 60 Hz, mais a opção
+  `ensure_only_display` do Sunshine (desliga o monitor físico durante a sessão e restaura no fim).
+- **[F]** O ajuste automático de resolução do Sunshine (`dd_resolution_option = auto`) só funciona
+  com **"Optimize game settings"** ligado no Moonlight, que vem desligado por padrão.
+
+### Controle no host
+
+- **[F]** Sem driver de controle virtual o Sunshine não entrega o gamepad aos jogos. Opções no
+  Sunshine 2026.914: **ViGEmBus** (gratuito, arquivado, emula Xbox 360/DS4) ou **Virtual HID Broker**
+  (licença paga). Adotado: ViGEmBus 1.22.0 com `gamepad_driver = vigembus`.
 
 ## 5. Ecossistema Sunshine/Moonlight — reaproveitamento
 
@@ -133,7 +155,7 @@ decode 10–25 ms, exibição em Game Mode). O app já exibe latência de host e
 
 | # | Risco | Mitigação |
 |---|---|---|
-| R1 | Upgrade para Tizen 9 quebra Game Mode (tela preta, congelamento, corrupção > 1080p) | Variante ForceGM; considerar congelar atualizações automáticas depois que tudo funcionar |
+| R1 | Upgrade para Tizen 9 quebra Game Mode (tela preta, congelamento, corrupção > 1080p). Hoje a TV está em Tizen 8 | Variante ForceGM; considerar congelar atualizações automáticas depois que tudo funcionar |
 | R2 | Firmware remove o app ou invalida o certificado | Backup do `.p12` e senha; build reproduzível |
 | R3 | Toolchain congelada (Emscripten 1.39.4.7 fastcomp, 2021) | Isolar no Docker; não atualizar sem motivo |
 | R4 | Upstream encerra desenvolvimento ativo no fim de 2026 | Manter o fork e acompanhar `upstream` |
@@ -154,3 +176,7 @@ decode 10–25 ms, exibição em Game Mode). O app já exibe latência de host e
 - Instalação do SDK — https://developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk/installing-tv-sdk.html
 - Gamepad — https://developer.samsung.com/smarttv/develop/guides/user-interaction/gamepad.html
 - Sunshine — https://github.com/LizardByte/Sunshine
+- Configuração do Sunshine (`gamepad_driver`, `dd_*`) — https://github.com/LizardByte/Sunshine/blob/master/docs/configuration.md
+- Virtual Display Driver — https://github.com/VirtualDrivers/Virtual-Display-Driver
+- ViGEmBus — https://github.com/nefarius/ViGEmBus
+- Apps2Samsung — https://github.com/Apps2Samsung/Apps2Samsung

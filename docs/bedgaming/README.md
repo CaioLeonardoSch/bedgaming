@@ -39,9 +39,9 @@ diagnóstico e polimento.
 | Item | Valor |
 |---|---|
 | TV | Samsung OLED S90D 55" (modelo brasileiro 2024, grupo de mídia `24TV_PREMIUM4`) |
-| Sistema da TV | Tizen 8.0 de fábrica (confirmar se já atualizou para 9.0) |
-| Host | Windows 11, NVIDIA RTX 5070 12 GB, Ethernet |
-| Roteador | TP-Link XX530v, rede 5 GHz dedicada para a TV |
+| Sistema da TV | Tizen 8.0 (confirmado em 19/11/2026; não atualizou para 9.0) |
+| Host | Windows 11, NVIDIA RTX 5070 12 GB, Ethernet; monitor ultrawide 3440×1440 + tela virtual 4K para o streaming |
+| Roteador | TP-Link Aginet XX530v (AX3000, Wi-Fi 6), rede 5 GHz dedicada para a TV |
 | Meta inicial | 3840×2160, 60 FPS, HEVC (AV1 como alternativa), baixa latência |
 
 > Dados identificadores da TV (número de série, DUID) **não** devem ser commitados neste repositório.
